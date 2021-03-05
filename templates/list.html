@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+
+{% block head %}
+<title>{{ list.name }}</title>
+{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-center mt-4" style="min-height: 200px">
+    <form class="card pb-5" style="width: 60rem;" action="/update/list/{{ list.id }}" method="post">
+        <div class="card-header" style="background-color: {{ colors[ list.color ] }};" id="header">
+            <div class="row align-items-center justify-content-between">
+                <div class="card-title col-auto my-0">
+                    <input class="form-control border-0 fs-3 p-0 fw-bold bg-transparent" type="text" name="name" value="{{ list.name }}">
+                </div>
+                <div class="col-auto my-0">
+                    <select class="form-select" name="color" oninput="colors = {{ colors }};header.style.background = colors[this.value];">
+                        {% for color in colors %}
+                        <option {% if list.color == color %} selected {% endif %} value="{{ color }}">{{ color }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                {% for task in list.tasks %}
+                 <li class="list-group-item" style="font-weight: 500;">{{ task.title }}</li>
+                {% endfor %}
+            </ul>
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-danger align-middle mt-1 me-1" href="/" role="button">Cancel</a>
+                <input type="submit" class="btn btn-success mt-1" value="Done">
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
