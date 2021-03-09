@@ -1,56 +1,23 @@
 {% extends 'main.html' %}
 
 {% block head %}
-<title>Planer</title>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='scripts/dragNdrop.js') }}"></script>
+<title>Listable</title>
 {% endblock %}
 
 {% block body %}
-<div class="row justify-content-start mt-4">
-    {% for list in lists %}
-    <!-- List -->
-    <div class="col-2 m-4 border rounded-3" style="background-color: white; min-height: 300px;" id="{{ list.id }}" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <!-- List Header -->
-        <div class="row border-bottom py-1 align-items-center rounded-top" onmousedown="return false;" style="background-color: {{ colors[ list.color ] }};">
-            <a class="col text-decoration-none text-body" href="/list/{{ list.id }}">
-                <h3>{{ list.name }}</h3>
-            </a>
-            <div class="col-auto border-start">
-                <a class="btn btn-close btn-sm" href="/delete/list/{{ list.id }}" role="button"></a>
-            </div>
+<div class="d-flex justify-content-center mt-4" style="min-height: 200px">
+    <div class="card pb-5" style="width: 60rem;">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                 <li class="list-group-item">
+                     <h1>Welcome to Listable</h1>
+                 </li>
+                <li class="list-group-item">
+                     Listable is tool where you can crete simple lists of tasks.
+                 </li>
+            </ul>
         </div>
-        {% for task in list.tasks %}
-        <!-- Task -->
-        <div class="row border-bottom py-2 align-items-center">
-            <a class="col text-decoration-none text-body" href="/task/{{ task.id }}">
-                <div style="font-weight: 500;" draggable="true" ondragstart="drag(event)" id="task{{ task.id }}">
-                    {{ task.title }}
-                </div>
-            </a>
-            <div class="col-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="{{ statuses[task.status] }}" class="bi bi-circle-fill" viewBox="0 0 16 16">
-                    <circle cx="8" cy="8" r="8"/>
-                </svg>
-            </div>
-            <div class="col-auto border-start" onmousedown="return false;">
-                <a class="btn btn-close btn-sm" href="/delete/task/{{ task.id }}" role="button"></a>
-            </div>
-        </div>
-        {% endfor %}
-        <!-- Add Task -->
-        <div class="row py-2" onmousedown="return false;">
-            <a class="col btn btn-outline-secondary border-0" role="button" href="/add/task/{{ list.id }}">New Task</a>
-        </div>
-    </div>
-    {% endfor %}
-    <!-- Add List -->
-    <div class="col-2 m-4 d-flex justify-content-center align-items-center rounded border" style="background: rgba(230, 230, 230, 0.5);">
-        <a href="/add/list">
-            <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" fill="gray" class="bi bi-plus" viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-            </svg>
-        </a>
     </div>
 </div>
+
 {% endblock %}

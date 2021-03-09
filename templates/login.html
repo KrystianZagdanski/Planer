@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+
+{% block head %}
+<title>Log in</title>
+{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-center mt-4">
+    <form class="card pb-5" style="width: 40rem;" action="/login" method="post">
+        <div class="card-header">
+            <div class="card-title col my-0">
+                <h3>Log in</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if form.errors or message %}
+            <div class="mb-3 row justify-content-center">
+                <div class="col-sm-8">
+                    {% for field, errors in form.errors.items() %}
+                        {% for error in errors %}
+                        <p style="color: red;">{{ error.replace("Field", form[field].label.text) }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% if message %}
+                    <p style="color: red;">{{ message }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            {{ form.csrf_token }}
+            <div class="mb-3 row justify-content-center">
+                <div class="col-sm-8">
+                    {{ form.username }}
+                </div>
+            </div>
+            <div class="mb-3 row justify-content-center">
+                <div class="col-sm-8">
+                    {{ form.password }}
+                </div>
+            </div>
+            <div class="mb-3 row justify-content-center">
+                <button type="submit" class="btn btn-primary mb-3 col-auto">Log in</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
